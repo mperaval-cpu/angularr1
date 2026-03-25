@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Enter Event</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+    <div ng-controller="myCtrl">
+        <label>Enter Name:</label>
+        <input type="text" ng-model="tempName" ng-keyup="$event.keyCode == 13 && updateDisplay()">
+        
+        <div ng-show="displayName">
+            <h3>Hello, {{ displayName }}!</h3>
+            <p>Total Enters: <strong>{{ count }}</strong></p>
+        </div>
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.tempName = "";
+            $scope.displayName = "";
+            $scope.count = 0;
+
+            $scope.updateDisplay = function() {
+                if($scope.tempName.trim() !== "") {
+                    $scope.displayName = $scope.tempName;
+                    $scope.count++;
+                    $scope.tempName = "";
+                }
+            };
+        });
+    </script>
+
+</body>
+</html>
